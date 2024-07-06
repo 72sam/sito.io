@@ -14,6 +14,7 @@
         }
         .container {
             margin-top: 50px;
+            position: relative;
         }
         .question {
             font-size: 24px;
@@ -24,6 +25,7 @@
         }
         .buttons {
             margin-top: 20px;
+            position: relative;
         }
         .button {
             padding: 15px 30px;
@@ -32,7 +34,8 @@
             border-radius: 25px;
             cursor: pointer;
             margin: 10px;
-            transition: transform 0.3s ease;
+            transition: transform 0.3s ease, top 0.3s ease, left 0.3s ease;
+            position: absolute;
         }
         .yes-button {
             background-color: #4CAF50;
@@ -52,7 +55,7 @@
         </div>
         <div class="buttons">
             <button class="button yes-button" id="yes-button" onclick="handleYes()">Sì</button>
-            <button class="button no-button" onclick="handleNo()" id="no-button">No</button>
+            <button class="button no-button" id="no-button" onclick="handleNo()">No</button>
         </div>
     </div>
 
@@ -75,12 +78,23 @@
         function handleNo() {
             if (noIndex < noMessages.length) {
                 noButton.textContent = noMessages[noIndex];
-                yesButton.style.transform = `scale(${1 + (noIndex + 1) * 0.5})`;
                 noIndex++;
             } else {
                 noButton.textContent = "Davvero?";
-                yesButton.style.transform = `scale(${1 + (noIndex + 1) * 0.5})`;
             }
+
+            // Raddoppia la dimensione del pulsante "Sì"
+            yesButton.style.transform = `scale(${Math.pow(2, noIndex)})`;
+
+            // Sposta il pulsante "No" in una nuova posizione casuale
+            const container = document.querySelector('.buttons');
+            const containerWidth = container.offsetWidth;
+            const containerHeight = container.offsetHeight;
+            const newTop = Math.random() * (containerHeight - noButton.offsetHeight);
+            const newLeft = Math.random() * (containerWidth - noButton.offsetWidth);
+
+            noButton.style.top = `${newTop}px`;
+            noButton.style.left = `${newLeft}px`;
         }
     </script>
 </body>
