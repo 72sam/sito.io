@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Richiesta di San Valentino</title>
+    <title>Invito</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -37,7 +37,6 @@
         .yes-button {
             background-color: #4CAF50;
             color: white;
-            transition: transform 0.3s ease;
         }
         .no-button {
             background-color: #f44336;
@@ -76,11 +75,11 @@
         function handleNo() {
             if (noIndex < noMessages.length) {
                 noButton.textContent = noMessages[noIndex];
-                yesButton.style.transform = `scale(${1 + (noIndex + 1) * 0.1})`;
+                yesButton.style.transform = `scale(${1 + (noIndex + 1) * 0.5})`;
                 noIndex++;
             } else {
                 noButton.textContent = "Davvero?";
-                yesButton.style.transform = `scale(${1 + (noIndex + 1) * 0.1})`;
+                yesButton.style.transform = `scale(${1 + (noIndex + 1) * 0.5})`;
             }
         }
     </script>
