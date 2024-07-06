@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invito</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            margin-top: 50px;
+            position: relative;
+        }
+        .question {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        .bear {
+            font-size: 100px;
+        }
+        .buttons {
+            margin-top: 20px;
+            position: relative;
+            height: 200px; /* Per dare spazio per il pulsante "No" di muoversi */
+        }
+        .button {
+            padding: 15px 30px;
+            font-size: 18px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            margin: 10px;
+            transition: transform 0.3s ease, top 0.3s ease, left 0.3s ease;
+            position: absolute;
+        }
+        .yes-button {
+            background-color: #4CAF50;
+            color: white;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        .no-button {
+            background-color: #f44336;
+            color: white;
+            top: 100px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="question">
+            <span class="bear">🐻</span>
+            <p>Vuoi uscire con me?</p>
+        </div>
+        <div class="buttons">
+            <button class="button yes-button" id="yes-button" onclick="handleYes()">Sì</button>
+            <button class="button no-button" id="no-button" onclick="handleNo()">No</button>
+        </div>
+    </div>
+
+    <script>
+        let yesButton = document.getElementById('yes-button');
+        let noButton = document.getElementById('no-button');
+        let noMessages = [
+            "Sei sicura?",
+            "Vuoi ripensarci?",
+            "Per favore?",
+            "Non dire no!",
+            "Pensaci ancora?"
+        ];
+        let noIndex = 0;
+
+        function handleYes() {
+            window.location.href = "grazie.html";
+        }
+
+        function handleNo() {
+            if (noIndex < noMessages.length) {
+                noButton.textContent = noMessages[noIndex];
+                noIndex++;
+            } else {
+                noButton.textContent = "Davvero?";
+            }
+
+            // Raddoppia la dimensione del pulsante "Sì"
+            yesButton.style.transform = `scale(${Math.pow(2, noIndex)})`;
+
+            // Sposta il pulsante "No" in una nuova posizione casuale
+            const container = document.querySelector('.buttons');
+            const containerWidth = container.offsetWidth;
+            const containerHeight = container.offsetHeight;
+            const newTop = Math.random() * (containerHeight - noButton.offsetHeight);
+            const newLeft = Math.random() * (containerWidth - noButton.offsetWidth);
+
+            noButton.style.top = `${newTop}px`;
+            noButton.style.left = `${newLeft}px`;
+        }
+    </script>
+</body>
+</html>
